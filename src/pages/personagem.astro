@@ -43,6 +43,20 @@ function modificador(valor: number): string {
           </div>
         </section>
 
+        {pj.progressao && pj.progressao.length > 0 && (
+          <section class="ficha__secao">
+            <h2>Progressão</h2>
+            <ol class="ficha__progressao">
+              {pj.progressao.map((entrada: { capitulo: number; nivel: number }) => (
+                <li class="ficha__progressao-item">
+                  <span class="ficha__progressao-nivel">nível {entrada.nivel}</span>
+                  <span class="ficha__progressao-capitulo">capítulo {entrada.capitulo}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
         {pj.pericias.length > 0 && (
           <section class="ficha__secao">
             <h2>Perícias</h2>
@@ -118,6 +132,36 @@ function modificador(valor: number): string {
   }
   .ficha__secao li {
     margin-bottom: 0.35rem;
+  }
+
+  .ficha__progressao {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ficha__progressao-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.25rem;
+    border-left: 1px solid var(--cor-borda);
+  }
+  .ficha__progressao-item:first-child {
+    border-left: none;
+    padding-left: 0;
+  }
+  .ficha__progressao-nivel {
+    font-family: var(--fonte-display);
+    font-size: 1.2rem;
+    color: var(--cor-acento);
+  }
+  .ficha__progressao-capitulo {
+    font-size: 0.8rem;
+    color: var(--cor-texto-suave);
   }
 
   .ficha__atributos {

@@ -32,6 +32,12 @@
       "Roupas comuns",
       "Pacote de aventureiro",
       "10 po"
+    ],
+    "progressao": [
+      {
+        "capitulo": 1,
+        "nivel": 1
+      }
     ]
   },
   "caidos": []
