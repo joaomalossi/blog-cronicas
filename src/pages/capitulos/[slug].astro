@@ -90,7 +90,28 @@ const formatarData = (data: Date) =>
 </Layout>
 
 <style>
+  /* A capa continua no tema escuro do site (dramática, sobre a foto). O corpo do
+     capítulo — a leitura de verdade — vira página de pergaminho claro: mais
+     confortável pra ler um texto longo do que texto claro sobre fundo escuro. */
+  .capitulo {
+    --cor-fundo: #f4e9d2;
+    --cor-fundo-elevado: #e9dbb9;
+    --cor-texto: #2b2013;
+    --cor-texto-suave: #6b5738;
+    --cor-acento: #7c4f19;
+    --cor-acento-suave: #9c6e2e;
+    --cor-borda: #d3bf8f;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+  }
   .capitulo__capa-wrapper {
+    --cor-fundo: #0b0805;
+    --cor-fundo-elevado: #18100a;
+    --cor-texto: #eeddb8;
+    --cor-texto-suave: #a4906c;
+    --cor-acento: #bd8a3f;
+    --cor-acento-suave: #7d5b26;
+    --cor-borda: #3a2c17;
     position: relative;
     width: 100%;
     aspect-ratio: 21 / 9;
