@@ -1,0 +1,21 @@
+{
+  "regioes": [
+    {
+      "nome": "Salobra, a Baía Decadente",
+      "descricao": "Salobra já foi o principal porto de comércio da costa. Isso foi antes do Afogamento — trinta e poucos anos atrás, quando um desastre arcano que ninguém sabe explicar direito afundou um terço da cidade baixa numa única noite e virou as marés ao redor do porto em algo errado, que sobe e desce fora de hora até hoje. A cidade nunca se reconstruiu de verdade; só aprendeu a viver ao redor da ferida. É um lugar de gente que chegou fugindo de outra coisa e ficou porque não tinha mais pra onde ir — encaixa bem num soldado desiludido.\n\nA desconfiança de magia em Salobra não é abstrata: é filha direta do Afogamento. Quem manifesta algum dom arcano em público aprende rápido a escondê-lo ou a sumir da cidade.",
+      "pontos_interesse": [
+        "O Molhe Velho",
+        "O Bairro Afogado",
+        "A Guarnição da Guarda do Molhe",
+        "O Mercado Salgado",
+        "A Taverna do Polvo Cego"
+      ],
+      "subsecoes": [
+        {
+          "titulo": "Facções",
+          "corpo": "A **Guarda do Molhe** é a autoridade nominal da cidade — mal paga, mal equipada, mais interessada em cobrar \"taxas\" de atracação do que em policiar o Bairro Afogado. Contrata espadas avulsas quando falta gente, o que é frequente."
+        }
+      ]
+    }
+  ]
+}

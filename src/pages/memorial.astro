@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ficha from '../data/ficha.json';
+import { caminhoImagem } from '../utils/imagens';
+
+const caidos = ficha.caidos ?? [];
+---
+
+<Layout title="Memorial dos Caídos" description="Os personagens que não sobreviveram às Crônicas de Maresia.">
+  <article class="pagina">
+    <h1>Memorial dos Caídos</h1>
+
+    {caidos.length === 0 && (
+      <p class="pagina__vazio">
+        Ninguém morreu ainda em Maresia. Aproveite enquanto dura — a campanha não suaviza dado ruim.
+      </p>
+    )}
+
+    <ul class="memorial__lista">
+      {caidos.map((pj: any) => (
+        <li class="memorial__item">
+          <img class="memorial__retrato" src={caminhoImagem(pj.retrato)} alt={`Retrato de ${pj.nome}`} />
+          <div>
+            <h2>{pj.nome}</h2>
+            <p class="memorial__epitafio">{pj.raca} · {pj.classe} · nível {pj.nivel}</p>
+            {pj.causa_morte && <p class="memorial__causa">{pj.causa_morte}</p>}
+            {pj.capitulo_morte && (
+              <a href={`${import.meta.env.BASE_URL}capitulos/${pj.capitulo_morte}`}>
+                Ler o capítulo da morte →
+              </a>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </article>
+</Layout>
+
+<style>
+  .pagina {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .pagina__vazio {
+    color: var(--cor-texto-suave);
+  }
+  .memorial__lista {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .memorial__item {
+    display: flex;
+    gap: 1.25rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 0.3rem;
+    padding: 1.25rem;
+  }
+  .memorial__retrato {
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+    border-radius: 0.3rem;
+    filter: grayscale(0.6);
+  }
+  .memorial__item h2 {
+    margin: 0 0 0.25rem;
+  }
+  .memorial__epitafio {
+    color: var(--cor-texto-suave);
+    margin: 0 0 0.5rem;
+  }
+  .memorial__causa {
+    font-style: italic;
+    margin: 0 0 0.5rem;
+  }
+</style>

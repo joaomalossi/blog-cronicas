@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import bestiarioData from '../data/bestiario.json';
+
+const criaturas = bestiarioData.criaturas;
+---
+
+<Layout title="Bestiário" description="Criaturas originais enfrentadas nas Crônicas de Maresia.">
+  <article class="pagina">
+    <h1>Bestiário</h1>
+
+    {criaturas.length === 0 && (
+      <p class="pagina__vazio">Nenhuma criatura registrada ainda — as trevas de Maresia seguem inexploradas.</p>
+    )}
+
+    <ul class="bestiario__lista">
+      {criaturas.map((criatura: any) => (
+        <li class="bestiario__item">
+          <h2>{criatura.nome}</h2>
+          <p>{criatura.descricao}</p>
+          {criatura.capitulo_encontro && (
+            <a href={`${import.meta.env.BASE_URL}capitulos/${criatura.capitulo_encontro}`}>
+              Ler o capítulo do encontro →
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+  </article>
+</Layout>
+
+<style>
+  .pagina {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .pagina__vazio {
+    color: var(--cor-texto-suave);
+  }
+  .bestiario__lista {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .bestiario__item {
+    border: 1px solid var(--cor-borda);
+    border-radius: 0.3rem;
+    padding: 1.25rem;
+  }
+  .bestiario__item h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+  }
+</style>

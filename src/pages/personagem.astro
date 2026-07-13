@@ -1,0 +1,150 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ficha from '../data/ficha.json';
+import { caminhoImagem } from '../utils/imagens';
+
+const pj = ficha.pj_ativo;
+const ordemAtributos = ['FOR', 'DES', 'CON', 'INT', 'SAB', 'CAR'] as const;
+
+function modificador(valor: number): string {
+  const mod = Math.floor((valor - 10) / 2);
+  return mod >= 0 ? `+${mod}` : `${mod}`;
+}
+---
+
+<Layout title="Personagem" description="A ficha viva do protagonista das Crônicas de Maresia.">
+  <article class="pagina">
+    {!pj && <p>Nenhum personagem ativo no momento.</p>}
+    {pj && (
+      <>
+        <header class="ficha__cabecalho">
+          <img class="ficha__retrato" src={caminhoImagem(pj.retrato)} alt={`Retrato de ${pj.nome}`} />
+          <div>
+            <h1>{pj.nome}</h1>
+            <p class="ficha__subtitulo">{pj.raca} · {pj.classe} · nível {pj.nivel}</p>
+            <div class="ficha__vitais">
+              <span><strong>PV</strong> {pj.hp_atual}/{pj.hp_maximo}</span>
+              <span><strong>CA</strong> {pj.ca}</span>
+              <span><strong>XP</strong> {pj.xp}</span>
+            </div>
+          </div>
+        </header>
+
+        <section class="ficha__secao">
+          <h2>Atributos</h2>
+          <div class="ficha__atributos">
+            {ordemAtributos.map((chave) => (
+              <div class="ficha__atributo">
+                <span class="ficha__atributo-nome">{chave}</span>
+                <span class="ficha__atributo-valor">{pj.atributos[chave]}</span>
+                <span class="ficha__atributo-mod">{modificador(pj.atributos[chave])}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {pj.pericias.length > 0 && (
+          <section class="ficha__secao">
+            <h2>Perícias</h2>
+            <ul>
+              {pj.pericias.map((p: string) => <li>{p}</li>)}
+            </ul>
+          </section>
+        )}
+
+        {pj.inventario.length > 0 && (
+          <section class="ficha__secao">
+            <h2>Inventário</h2>
+            <ul>
+              {pj.inventario.map((item: string) => <li>{item}</li>)}
+            </ul>
+          </section>
+        )}
+      </>
+    )}
+  </article>
+</Layout>
+
+<style>
+  .pagina {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .ficha__cabecalho {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--cor-borda);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .ficha__retrato {
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+    border-radius: 0.3rem;
+    border: 1px solid var(--cor-borda);
+  }
+  .ficha__cabecalho h1 {
+    margin: 0 0 0.25rem;
+  }
+  .ficha__subtitulo {
+    color: var(--cor-texto-suave);
+    margin: 0 0 0.75rem;
+  }
+  .ficha__vitais {
+    display: flex;
+    gap: 1.25rem;
+    font-size: 0.95rem;
+  }
+  .ficha__vitais strong {
+    color: var(--cor-acento);
+    margin-right: 0.25rem;
+  }
+
+  .ficha__secao {
+    margin-bottom: 2rem;
+  }
+  .ficha__secao h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+  .ficha__secao ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--cor-texto-suave);
+  }
+  .ficha__secao li {
+    margin-bottom: 0.35rem;
+  }
+
+  .ficha__atributos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+    gap: 0.75rem;
+  }
+  .ficha__atributo {
+    border: 1px solid var(--cor-borda);
+    border-radius: 0.3rem;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+  }
+  .ficha__atributo-nome {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--cor-texto-suave);
+    letter-spacing: 0.05em;
+  }
+  .ficha__atributo-valor {
+    display: block;
+    font-family: var(--fonte-display);
+    font-size: 1.5rem;
+  }
+  .ficha__atributo-mod {
+    display: block;
+    color: var(--cor-acento);
+    font-size: 0.9rem;
+  }
+</style>

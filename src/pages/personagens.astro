@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import npcsData from '../data/npcs.json';
+import { caminhoImagem } from '../utils/imagens';
+
+const npcs = npcsData.npcs;
+---
+
+<Layout title="Personagens" description="Galeria de NPCs conhecidos das Crônicas de Maresia.">
+  <article class="pagina">
+    <h1>Personagens</h1>
+
+    {npcs.length === 0 && <p class="pagina__vazio">Nenhum NPC revelado ainda.</p>}
+
+    <ul class="galeria">
+      {npcs.map((npc) => (
+        <li class="galeria__item">
+          {npc.retrato ? (
+            <img class="galeria__retrato" src={caminhoImagem(npc.retrato)} alt={`Retrato de ${npc.nome}`} />
+          ) : (
+            <div class="galeria__retrato galeria__retrato--vazio" aria-hidden="true">?</div>
+          )}
+          <div>
+            <h2>{npc.nome}</h2>
+            <p class="galeria__papel">{npc.papel}</p>
+            <p class="galeria__local">{npc.localizacao}</p>
+            <p class="galeria__descricao">{npc.descricao}</p>
+            {npc.aparicoes.length > 0 && (
+              <p class="galeria__aparicoes">
+                Aparece em:{' '}
+                {npc.aparicoes.map((cap: string, indice: number) => (
+                  <>
+                    <a href={`${import.meta.env.BASE_URL}capitulos/${cap}`}>{cap}</a>
+                    {indice < npc.aparicoes.length - 1 ? ', ' : ''}
+                  </>
+                ))}
+              </p>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </article>
+</Layout>
+
+<style>
+  .pagina {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .pagina__vazio {
+    color: var(--cor-texto-suave);
+  }
+  .galeria {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 1.5rem;
+  }
+  .galeria__item {
+    display: flex;
+    gap: 1rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 0.3rem;
+    padding: 1.25rem;
+  }
+  .galeria__retrato {
+    width: 4.5rem;
+    height: 4.5rem;
+    object-fit: cover;
+    border-radius: 0.3rem;
+    flex-shrink: 0;
+  }
+  .galeria__retrato--vazio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cor-fundo-elevado);
+    color: var(--cor-texto-suave);
+    font-family: var(--fonte-display);
+    font-size: 1.5rem;
+  }
+  .galeria__item h2 {
+    font-size: 1.1rem;
+    margin: 0 0 0.25rem;
+  }
+  .galeria__papel {
+    color: var(--cor-acento);
+    font-size: 0.85rem;
+    margin: 0 0 0.15rem;
+  }
+  .galeria__local {
+    color: var(--cor-texto-suave);
+    font-size: 0.8rem;
+    margin: 0 0 0.5rem;
+  }
+  .galeria__descricao {
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem;
+  }
+  .galeria__aparicoes {
+    font-size: 0.75rem;
+    color: var(--cor-texto-suave);
+    margin: 0;
+  }
+</style>

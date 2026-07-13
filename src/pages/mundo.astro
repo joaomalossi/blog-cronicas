@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import mundo from '../data/mundo.json';
+
+const REGEX_MARCAS_COMBINANTES = new RegExp('[̀-ͯ]', 'g');
+
+function nomeParaSlugMapa(nome: string): string {
+  return nome
+    .normalize('NFKD')
+    .replace(REGEX_MARCAS_COMBINANTES, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+---
+
+<Layout title="O Mundo" description="Lugares e facções revelados de Maresia.">
+  <article class="pagina">
+    <h1>O Mundo</h1>
+
+    {mundo.regioes.length === 0 && <p class="pagina__vazio">Nenhuma região revelada ainda.</p>}
+
+    {mundo.regioes.map((regiao) => (
+      <section class="regiao">
+        <img
+          class="regiao__mapa"
+          src={`${import.meta.env.BASE_URL}img/mapas/${nomeParaSlugMapa(regiao.nome)}.webp`}
+          alt={`Mapa ilustrado de ${regiao.nome}`}
+          loading="lazy"
+        />
+        <h2>{regiao.nome}</h2>
+        {regiao.descricao.split('\n\n').map((paragrafo) => <p>{paragrafo}</p>)}
+
+        {regiao.pontos_interesse.length > 0 && (
+          <div class="regiao__pontos">
+            <h3>Pontos de interesse</h3>
+            <ul>
+              {regiao.pontos_interesse.map((ponto: string) => <li>{ponto}</li>)}
+            </ul>
+          </div>
+        )}
+
+        {regiao.subsecoes.map((sub: { titulo: string; corpo: string }) => (
+          <div class="regiao__sub">
+            <h3>{sub.titulo}</h3>
+            <p set:html={sub.corpo.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')} />
+          </div>
+        ))}
+      </section>
+    ))}
+  </article>
+</Layout>
+
+<style>
+  .pagina {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .pagina__vazio {
+    color: var(--cor-texto-suave);
+  }
+  .regiao {
+    margin-bottom: 3rem;
+  }
+  .regiao__mapa {
+    width: 100%;
+    border-radius: 0.3rem;
+    border: 1px solid var(--cor-borda);
+    margin-bottom: 1.5rem;
+  }
+  .regiao__pontos ul {
+    padding-left: 1.25rem;
+    color: var(--cor-texto-suave);
+  }
+  .regiao__sub h3,
+  .regiao__pontos h3 {
+    font-size: 1.05rem;
+  }
+</style>

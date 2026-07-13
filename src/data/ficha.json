@@ -1,0 +1,38 @@
+{
+  "pj_ativo": {
+    "nome": "Shirke",
+    "raca": "Humano",
+    "classe": "Guerreiro",
+    "nivel": 1,
+    "xp": 0,
+    "retrato": "imagens/referencias/shirke.png",
+    "atributos": {
+      "FOR": 16,
+      "DES": 14,
+      "CON": 15,
+      "INT": 12,
+      "SAB": 14,
+      "CAR": 8
+    },
+    "hp_atual": 12,
+    "hp_maximo": 12,
+    "ca": 19,
+    "pericias": [
+      "Atletismo (antecedente Soldado)",
+      "Intimidação (antecedente Soldado)",
+      "Percepção (Guerreiro)",
+      "Sobrevivência (Guerreiro)"
+    ],
+    "inventario": [
+      "Cota de malha, escudo",
+      "Espada longa, dois machados de arremesso",
+      "Insígnia de patente (Lanceiros Cinzentos)",
+      "Um fetiche tirado de um inimigo caído — uma lâmina partida que carrega sem saber bem por quê",
+      "Um conjunto de dados de osso",
+      "Roupas comuns",
+      "Pacote de aventureiro",
+      "10 po"
+    ]
+  },
+  "caidos": []
+}

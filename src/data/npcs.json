@@ -1,0 +1,48 @@
+{
+  "npcs": [
+    {
+      "nome": "Doran",
+      "papel": "Guarda do Molhe, patrulha do cais",
+      "localizacao": "Salobra — Molhe Velho",
+      "disposicao": "amistosa — Shirke pagou a rodada e perguntou o nome dele no primeiro encontro",
+      "aparicoes": [
+        "capítulo-001"
+      ],
+      "retrato": "",
+      "descricao": "Magro, barba rala, riu antes de conseguir se conter quando Shirke puxou papo. Reconheceu o porte de cavalaria em Shirke sem saber de que companhia. Fala mais que Renque."
+    },
+    {
+      "nome": "Renque",
+      "papel": "Guarda do Molhe, patrulha do cais",
+      "localizacao": "Salobra — Molhe Velho",
+      "disposicao": "neutra-amistosa — aceitou a moeda, poucas palavras",
+      "aparicoes": [
+        "capítulo-001"
+      ],
+      "retrato": "",
+      "descricao": "Seco, direto. Avisou que Ossa, da Taverna do Polvo Cego, morde."
+    },
+    {
+      "nome": "Ossa",
+      "papel": "Taverneira, dona da Taverna do Polvo Cego",
+      "localizacao": "Salobra — Taverna do Polvo Cego",
+      "disposicao": "amistosa, direta — respeita quem não enrola",
+      "aparicoes": [
+        "capítulo-001"
+      ],
+      "retrato": "",
+      "descricao": "Robusta, antebraços de estivador, limpa copo com pano sujo. Reconhece \"cavalaria\" de longe. Alugou quarto a Shirke (1 pp/noite, acomodação Pobre). Não gosta de falar de magia — \"depois do Afogamento, gente que entende dessas coisas costuma sumir\"."
+    },
+    {
+      "nome": "Vesper",
+      "papel": "Investigador forasteiro, contratante de Shirke",
+      "localizacao": "Salobra — Taverna do Polvo Cego (encontrado lá; 3 dias sentado na mesma mesa antes de abordar Shirke)",
+      "disposicao": "profissional, cauteloso — contratou Shirke, espera lealdade em troca de paga generosa",
+      "aparicoes": [
+        "capítulo-001"
+      ],
+      "retrato": "imagens/referencias/vesper.png",
+      "descricao": "Forasteiro, sotaque de terras centrais, capa remendada mas de corte bom — já teve dinheiro, ou ainda tem e não ostenta. Fala pouco, nunca tira o olho da porta. Procura Íris, escriba que veio pesquisar o Afogamento e desapareceu há duas semanas depois de mencionar ter achado \"algo que não devia ter sobrevivido àquela noite\" sob o Bairro Afogado. Contratou Shirke por 50 po (25 adiantado, negociado) pra investigar o Bairro Afogado; encontro marcado no Polvo Cego ao amanhecer."
+    }
+  ]
+}
