@@ -1,0 +1,162 @@
+---
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Crônicas de Maresia — capítulos ilustrados de uma campanha solo de D&D.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} — Crônicas de Maresia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+    <header class="cabecalho">
+      <nav class="cabecalho__nav">
+        <a class="cabecalho__marca" href={`${import.meta.env.BASE_URL}`}>Crônicas de Maresia</a>
+        <div class="cabecalho__links">
+          <a href={`${import.meta.env.BASE_URL}personagem`}>Personagem</a>
+          <a href={`${import.meta.env.BASE_URL}mundo`}>Mundo</a>
+          <a href={`${import.meta.env.BASE_URL}personagens`}>NPCs</a>
+          <a href={`${import.meta.env.BASE_URL}bestiario`}>Bestiário</a>
+          <a href={`${import.meta.env.BASE_URL}estatisticas`}>Estatísticas</a>
+          <a href={`${import.meta.env.BASE_URL}memorial`}>Memorial</a>
+          <a href={`${import.meta.env.BASE_URL}sobre`}>Sobre</a>
+        </div>
+      </nav>
+    </header>
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Footer />
+    <style is:global>
+      :root {
+        --cor-fundo: #15120f;
+        --cor-fundo-elevado: #1c1814;
+        --cor-texto: #e9e1d3;
+        --cor-texto-suave: #b6ab98;
+        --cor-acento: #c9a24b;
+        --cor-acento-suave: #8a6f34;
+        --cor-borda: #322a21;
+        --fonte-corpo: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        --fonte-display: 'Playfair Display', Georgia, serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--cor-fundo);
+        color: var(--cor-texto);
+        font-family: var(--fonte-corpo);
+        line-height: 1.7;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      main {
+        flex: 1;
+      }
+
+      .pular-conteudo {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        background: var(--cor-acento);
+        color: var(--cor-fundo);
+        padding: 0.75rem 1.25rem;
+        z-index: 100;
+      }
+      .pular-conteudo:focus {
+        left: 1rem;
+        top: 1rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--fonte-display);
+        font-weight: 700;
+        line-height: 1.25;
+        color: var(--cor-texto);
+      }
+
+      a {
+        color: var(--cor-acento);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .cabecalho {
+        border-bottom: 1px solid var(--cor-borda);
+        background: var(--cor-fundo-elevado);
+      }
+      .cabecalho__nav {
+        max-width: 72rem;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 1.5rem;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .cabecalho__marca {
+        font-family: var(--fonte-display);
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--cor-texto);
+        letter-spacing: 0.02em;
+      }
+      .cabecalho__marca:hover {
+        text-decoration: none;
+        color: var(--cor-acento);
+      }
+      .cabecalho__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 1.25rem;
+        font-size: 0.95rem;
+      }
+      .cabecalho__links a {
+        color: var(--cor-texto-suave);
+      }
+      .cabecalho__links a:hover {
+        color: var(--cor-acento);
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+    </style>
+  </body>
+</html>

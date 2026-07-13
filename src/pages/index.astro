@@ -1,0 +1,144 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const posts = await getCollection('posts');
+const ordenados = posts.sort((a, b) => b.data.data.valueOf() - a.data.data.valueOf());
+const [maisRecente, ...restante] = ordenados;
+
+const formatarData = (data: Date) =>
+  data.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+
+<Layout title="Início">
+  {maisRecente && (
+    <section class="hero">
+      <a href={`${import.meta.env.BASE_URL}capitulos/${maisRecente.slug}`} class="hero__link">
+        <img class="hero__capa" src={maisRecente.data.imagem_capa} alt="" />
+        <div class="hero__texto">
+          <p class="hero__etiqueta">Capítulo mais recente</p>
+          <h1 class="hero__titulo">{maisRecente.data.titulo}</h1>
+          <p class="hero__resumo">{maisRecente.data.resumo}</p>
+          <p class="hero__data">{formatarData(maisRecente.data.data)}</p>
+        </div>
+      </a>
+    </section>
+  )}
+
+  <section class="indice">
+    <h2>Todos os capítulos</h2>
+    {ordenados.length === 0 && <p>Nenhum capítulo publicado ainda.</p>}
+    <ul class="indice__lista">
+      {ordenados.map((post) => (
+        <li class="indice__item">
+          <a href={`${import.meta.env.BASE_URL}capitulos/${post.slug}`}>
+            <img class="indice__capa" src={post.data.imagem_capa} alt="" loading="lazy" />
+            <div>
+              <h3>{post.data.titulo}</h3>
+              <p class="indice__resumo">{post.data.resumo}</p>
+              <p class="indice__data">{formatarData(post.data.data)}</p>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .hero__link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    position: relative;
+    margin-top: 1.5rem;
+  }
+  .hero__link:hover {
+    text-decoration: none;
+  }
+  .hero__capa {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  .hero__texto {
+    padding: 1.5rem 0;
+  }
+  .hero__etiqueta {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    color: var(--cor-acento);
+    margin: 0 0 0.5rem;
+  }
+  .hero__titulo {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    margin: 0 0 0.75rem;
+  }
+  .hero__resumo {
+    color: var(--cor-texto-suave);
+    max-width: 42rem;
+    margin: 0 0 0.5rem;
+  }
+  .hero__data {
+    color: var(--cor-texto-suave);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  .indice {
+    max-width: 72rem;
+    margin: 3rem auto 0;
+    padding: 0 1.5rem 3rem;
+  }
+  .indice h2 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--cor-borda);
+    padding-bottom: 0.75rem;
+  }
+  .indice__lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 2rem;
+  }
+  .indice__item a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    color: inherit;
+    text-decoration: none;
+  }
+  .indice__item a:hover h3 {
+    color: var(--cor-acento);
+  }
+  .indice__capa {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 0.2rem;
+  }
+  .indice__item h3 {
+    font-size: 1.15rem;
+    margin: 0;
+  }
+  .indice__resumo {
+    color: var(--cor-texto-suave);
+    font-size: 0.9rem;
+    margin: 0.25rem 0;
+  }
+  .indice__data {
+    color: var(--cor-texto-suave);
+    font-size: 0.8rem;
+    margin: 0;
+  }
+</style>

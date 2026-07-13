@@ -1,0 +1,39 @@
+---
+const ano = new Date().getFullYear();
+---
+
+<footer class="rodape">
+  <div class="rodape__conteudo">
+    <p>
+      Este trabalho inclui material do System Reference Document 5.2 (“SRD 5.2”) disponibilizado
+      pela Wizards of the Coast LLC sob a Creative Commons Attribution 4.0 International License
+      (CC-BY-4.0, <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener noreferrer">disponível aqui</a>).
+    </p>
+    <p>
+      Crônicas de Maresia é um projeto de fã, não afiliado, endossado ou patrocinado pela Wizards
+      of the Coast. Mundo, personagens e narrativa são originais.
+    </p>
+    <p>© {ano} João Malossi / Malossi Studio. Todos os textos e ilustrações originais reservados.</p>
+  </div>
+  <style>
+    .rodape {
+      border-top: 1px solid var(--cor-borda);
+      background: var(--cor-fundo-elevado);
+      margin-top: 4rem;
+    }
+    .rodape__conteudo {
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      font-size: 0.8rem;
+      color: var(--cor-texto-suave);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .rodape__conteudo a {
+      color: var(--cor-texto-suave);
+      text-decoration: underline;
+    }
+  </style>
+</footer>

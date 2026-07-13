@@ -1,0 +1,214 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const ordenados = posts.sort((a, b) => a.data.data.valueOf() - b.data.data.valueOf());
+
+  return ordenados.map((post, indice) => ({
+    params: { slug: post.slug },
+    props: {
+      post,
+      anterior: ordenados[indice - 1] ?? null,
+      proximo: ordenados[indice + 1] ?? null,
+    },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  anterior: CollectionEntry<'posts'> | null;
+  proximo: CollectionEntry<'posts'> | null;
+}
+
+const { post, anterior, proximo } = Astro.props;
+const { Content } = await post.render();
+
+const formatarData = (data: Date) =>
+  data.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+
+<Layout title={post.data.titulo} description={post.data.resumo}>
+  <article class="capitulo">
+    <div class="capitulo__capa-wrapper">
+      <img class="capitulo__capa" src={post.data.imagem_capa} alt="" />
+      <div class="capitulo__capa-sombra"></div>
+      <div class="capitulo__cabecalho">
+        <h1>{post.data.titulo}</h1>
+        <p class="capitulo__meta">{formatarData(post.data.data)}</p>
+      </div>
+    </div>
+
+    <div class="capitulo__corpo">
+      <p class="capitulo__resumo">{post.data.resumo}</p>
+      <div class="capitulo__texto">
+        <Content />
+      </div>
+
+      {post.data.tags.length > 0 && (
+        <ul class="capitulo__tags">
+          {post.data.tags.map((tag) => (
+            <li>{tag}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    <nav class="capitulo__navegacao">
+      <a
+        class="capitulo__navegacao-link"
+        href={anterior ? `${import.meta.env.BASE_URL}capitulos/${anterior.slug}` : undefined}
+        aria-disabled={!anterior}
+      >
+        {anterior ? (
+          <>
+            <span class="capitulo__navegacao-etiqueta">← Capítulo anterior</span>
+            <span>{anterior.data.titulo}</span>
+          </>
+        ) : (
+          <span class="capitulo__navegacao-etiqueta">Este é o primeiro capítulo</span>
+        )}
+      </a>
+      <a
+        class="capitulo__navegacao-link capitulo__navegacao-link--proximo"
+        href={proximo ? `${import.meta.env.BASE_URL}capitulos/${proximo.slug}` : undefined}
+        aria-disabled={!proximo}
+      >
+        {proximo ? (
+          <>
+            <span class="capitulo__navegacao-etiqueta">Próximo capítulo →</span>
+            <span>{proximo.data.titulo}</span>
+          </>
+        ) : (
+          <span class="capitulo__navegacao-etiqueta">Ainda não há próximo capítulo</span>
+        )}
+      </a>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .capitulo__capa-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    overflow: hidden;
+  }
+  .capitulo__capa {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .capitulo__capa-sombra {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--cor-fundo) 0%, transparent 55%);
+  }
+  .capitulo__cabecalho {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2rem 1.5rem;
+    max-width: 60rem;
+    margin: 0 auto;
+  }
+  .capitulo__cabecalho h1 {
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    margin: 0;
+  }
+  .capitulo__meta {
+    color: var(--cor-texto-suave);
+    margin: 0.5rem 0 0;
+  }
+
+  .capitulo__corpo {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 1rem;
+  }
+  .capitulo__resumo {
+    color: var(--cor-texto-suave);
+    font-style: italic;
+    border-left: 3px solid var(--cor-acento-suave);
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+  }
+  .capitulo__texto {
+    font-size: 1.1rem;
+  }
+  .capitulo__texto :global(p:first-of-type::first-letter) {
+    font-family: var(--fonte-display);
+    font-size: 3.5rem;
+    float: left;
+    line-height: 0.85;
+    padding: 0.1rem 0.5rem 0 0;
+    color: var(--cor-acento);
+  }
+  .capitulo__texto :global(p) {
+    margin: 0 0 1.25rem;
+  }
+
+  .capitulo__tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 2rem 0 0;
+  }
+  .capitulo__tags li {
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto-suave);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+  }
+
+  .capitulo__navegacao {
+    max-width: 60rem;
+    margin: 3rem auto 0;
+    padding: 2rem 1.5rem;
+    border-top: 1px solid var(--cor-borda);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .capitulo__navegacao-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    color: inherit;
+    text-decoration: none;
+  }
+  .capitulo__navegacao-link[href]:hover span:last-child {
+    color: var(--cor-acento);
+  }
+  .capitulo__navegacao-link:not([href]) {
+    color: var(--cor-texto-suave);
+    cursor: default;
+  }
+  .capitulo__navegacao-link--proximo {
+    text-align: right;
+    align-items: flex-end;
+  }
+  .capitulo__navegacao-etiqueta {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--cor-texto-suave);
+  }
+
+  @media (max-width: 40rem) {
+    .capitulo__navegacao {
+      grid-template-columns: 1fr;
+    }
+    .capitulo__navegacao-link--proximo {
+      text-align: left;
+      align-items: flex-start;
+    }
+  }
+</style>
