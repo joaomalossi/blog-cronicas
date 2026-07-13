@@ -18,7 +18,7 @@ function modificador(valor: number): string {
     {pj && (
       <>
         <header class="ficha__cabecalho">
-          <img class="ficha__retrato" src={caminhoImagem(pj.retrato)} alt={`Retrato de ${pj.nome}`} />
+          <img class="ficha__retrato medalhao" src={caminhoImagem(pj.retrato)} alt={`Retrato de ${pj.nome}`} />
           <div>
             <h1>{pj.nome}</h1>
             <p class="ficha__subtitulo">{pj.raca} · {pj.classe} · nível {pj.nivel}</p>
@@ -99,7 +99,6 @@ function modificador(valor: number): string {
     height: 8rem;
     object-fit: cover;
     border-radius: 0.3rem;
-    border: 1px solid var(--cor-borda);
   }
   .ficha__cabecalho h1 {
     margin: 0 0 0.25rem;
