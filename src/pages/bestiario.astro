@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import bestiarioData from '../data/bestiario.json';
+import { caminhoImagem } from '../utils/imagens';
 
 const criaturas = bestiarioData.criaturas;
 ---
@@ -16,13 +17,20 @@ const criaturas = bestiarioData.criaturas;
     <ul class="bestiario__lista">
       {criaturas.map((criatura: any) => (
         <li class="bestiario__item">
-          <h2>{criatura.nome}</h2>
-          <p>{criatura.descricao}</p>
-          {criatura.capitulo_encontro && (
-            <a href={`${import.meta.env.BASE_URL}capitulos/${criatura.capitulo_encontro}`}>
-              Ler o capítulo do encontro →
-            </a>
+          {criatura.retrato ? (
+            <img class="bestiario__retrato" src={caminhoImagem(criatura.retrato)} alt={`Retrato de ${criatura.nome}`} />
+          ) : (
+            <div class="bestiario__retrato bestiario__retrato--vazio" aria-hidden="true">?</div>
           )}
+          <div>
+            <h2>{criatura.nome}</h2>
+            <p>{criatura.descricao}</p>
+            {criatura.capitulo_encontro && (
+              <a href={`${import.meta.env.BASE_URL}capitulos/${criatura.capitulo_encontro}`}>
+                Ler o capítulo do encontro →
+              </a>
+            )}
+          </div>
         </li>
       ))}
     </ul>
@@ -47,9 +55,27 @@ const criaturas = bestiarioData.criaturas;
     gap: 1.5rem;
   }
   .bestiario__item {
+    display: flex;
+    gap: 1.25rem;
     border: 1px solid var(--cor-borda);
     border-radius: 0.3rem;
     padding: 1.25rem;
+  }
+  .bestiario__retrato {
+    width: 5.5rem;
+    height: 5.5rem;
+    object-fit: cover;
+    border-radius: 0.3rem;
+    flex-shrink: 0;
+  }
+  .bestiario__retrato--vazio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cor-fundo-elevado);
+    color: var(--cor-texto-suave);
+    font-family: var(--fonte-display);
+    font-size: 1.5rem;
   }
   .bestiario__item h2 {
     margin: 0 0 0.5rem;
