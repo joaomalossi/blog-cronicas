@@ -20,12 +20,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Instalar, buildar e exportar
+      - name: Instalar, buildar e exportar (já sobe o artefato de Pages)
         uses: withastro/action@v3
-      - name: Upload do artefato do build
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
 
   deploy:
     needs: build
