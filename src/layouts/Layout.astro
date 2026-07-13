@@ -163,6 +163,9 @@ const { title, description = 'Crônicas de Maresia — capítulos ilustrados de 
       }
 
       .cabecalho {
+        position: sticky;
+        top: 0;
+        z-index: 40;
         border-bottom: 1px solid var(--cor-borda);
         background: var(--cor-fundo-elevado);
       }
@@ -205,6 +208,35 @@ const { title, description = 'Crônicas de Maresia — capítulos ilustrados de 
         max-width: 100%;
         height: auto;
         display: block;
+      }
+
+      /* zoom de imagem, reutilizado em qualquer página: envolva a miniatura num
+         <a href="#algum-id" class="imagem-zoom">, e em algum lugar da página
+         coloque <a href="#" id="algum-id" class="lightbox"><img .../></a> */
+      .imagem-zoom {
+        display: block;
+        cursor: zoom-in;
+      }
+      .lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1.5rem;
+        background: rgba(10, 8, 6, 0.92);
+        cursor: zoom-out;
+      }
+      .lightbox:target {
+        display: flex;
+      }
+      .lightbox img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border-radius: 0.3rem;
+        box-shadow: 0 0 3rem rgba(0, 0, 0, 0.6);
       }
     </style>
   </body>

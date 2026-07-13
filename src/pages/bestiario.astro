@@ -15,10 +15,17 @@ const criaturas = bestiarioData.criaturas;
     )}
 
     <ul class="bestiario__lista">
-      {criaturas.map((criatura: any) => (
+      {criaturas.map((criatura: any, indice: number) => (
         <li class="bestiario__item">
           {criatura.retrato ? (
-            <img class="bestiario__retrato" src={caminhoImagem(criatura.retrato)} alt={`Retrato de ${criatura.nome}`} />
+            <>
+              <a href={`#criatura-${indice}`} class="imagem-zoom" aria-label={`Ampliar retrato de ${criatura.nome}`}>
+                <img class="bestiario__retrato" src={caminhoImagem(criatura.retrato)} alt={`Retrato de ${criatura.nome}`} />
+              </a>
+              <a href="#" id={`criatura-${indice}`} class="lightbox" aria-label="Fechar imagem ampliada">
+                <img src={caminhoImagem(criatura.retrato)} alt={`Retrato de ${criatura.nome} ampliado`} />
+              </a>
+            </>
           ) : (
             <div class="bestiario__retrato bestiario__retrato--vazio" aria-hidden="true">?</div>
           )}

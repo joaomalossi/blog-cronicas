@@ -13,10 +13,17 @@ const npcs = npcsData.npcs;
     {npcs.length === 0 && <p class="pagina__vazio">Nenhum NPC revelado ainda.</p>}
 
     <ul class="galeria">
-      {npcs.map((npc) => (
+      {npcs.map((npc, indice) => (
         <li class="galeria__item">
           {npc.retrato ? (
-            <img class="galeria__retrato" src={caminhoImagem(npc.retrato)} alt={`Retrato de ${npc.nome}`} />
+            <>
+              <a href={`#npc-${indice}`} class="imagem-zoom" aria-label={`Ampliar retrato de ${npc.nome}`}>
+                <img class="galeria__retrato" src={caminhoImagem(npc.retrato)} alt={`Retrato de ${npc.nome}`} />
+              </a>
+              <a href="#" id={`npc-${indice}`} class="lightbox" aria-label="Fechar imagem ampliada">
+                <img src={caminhoImagem(npc.retrato)} alt={`Retrato de ${npc.nome} ampliado`} />
+              </a>
+            </>
           ) : (
             <div class="galeria__retrato galeria__retrato--vazio" aria-hidden="true">?</div>
           )}

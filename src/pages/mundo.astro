@@ -22,12 +22,20 @@ function nomeParaSlugMapa(nome: string): string {
 
     {mundo.regioes.map((regiao) => (
       <section class="regiao">
-        <img
-          class="regiao__mapa"
-          src={`${import.meta.env.BASE_URL}img/mapas/${nomeParaSlugMapa(regiao.nome)}.webp`}
-          alt={`Mapa ilustrado de ${regiao.nome}`}
-          loading="lazy"
-        />
+        <a href={`#mapa-${nomeParaSlugMapa(regiao.nome)}`} class="imagem-zoom" aria-label={`Ampliar mapa de ${regiao.nome}`}>
+          <img
+            class="regiao__mapa"
+            src={`${import.meta.env.BASE_URL}img/mapas/${nomeParaSlugMapa(regiao.nome)}.webp`}
+            alt={`Mapa ilustrado de ${regiao.nome}`}
+            loading="lazy"
+          />
+        </a>
+        <a href="#" id={`mapa-${nomeParaSlugMapa(regiao.nome)}`} class="lightbox" aria-label="Fechar imagem ampliada">
+          <img
+            src={`${import.meta.env.BASE_URL}img/mapas/${nomeParaSlugMapa(regiao.nome)}.webp`}
+            alt={`Mapa ilustrado de ${regiao.nome} ampliado`}
+          />
+        </a>
         <h2>{regiao.nome}</h2>
         {regiao.descricao.split('\n\n').map((paragrafo) => <p>{paragrafo}</p>)}
 

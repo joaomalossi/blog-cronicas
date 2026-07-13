@@ -18,7 +18,12 @@ function modificador(valor: number): string {
     {pj && (
       <>
         <header class="ficha__cabecalho">
-          <img class="ficha__retrato medalhao" src={caminhoImagem(pj.retrato)} alt={`Retrato de ${pj.nome}`} />
+          <a href="#retrato-ampliado" class="imagem-zoom" aria-label={`Ampliar retrato de ${pj.nome}`}>
+            <img class="ficha__retrato medalhao" src={caminhoImagem(pj.retrato)} alt={`Retrato de ${pj.nome}`} />
+          </a>
+          <a href="#" id="retrato-ampliado" class="lightbox" aria-label="Fechar imagem ampliada">
+            <img src={caminhoImagem(pj.retrato)} alt={`Retrato de ${pj.nome} ampliado`} />
+          </a>
           <div>
             <h1>{pj.nome}</h1>
             <p class="ficha__subtitulo">{pj.raca} · {pj.classe} · nível {pj.nivel}</p>

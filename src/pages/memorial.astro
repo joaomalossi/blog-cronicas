@@ -17,9 +17,14 @@ const caidos = ficha.caidos ?? [];
     )}
 
     <ul class="memorial__lista">
-      {caidos.map((pj: any) => (
+      {caidos.map((pj: any, indice: number) => (
         <li class="memorial__item">
-          <img class="memorial__retrato" src={caminhoImagem(pj.retrato)} alt={`Retrato de ${pj.nome}`} />
+          <a href={`#caido-${indice}`} class="imagem-zoom" aria-label={`Ampliar retrato de ${pj.nome}`}>
+            <img class="memorial__retrato" src={caminhoImagem(pj.retrato)} alt={`Retrato de ${pj.nome}`} />
+          </a>
+          <a href="#" id={`caido-${indice}`} class="lightbox" aria-label="Fechar imagem ampliada">
+            <img src={caminhoImagem(pj.retrato)} alt={`Retrato de ${pj.nome} ampliado`} />
+          </a>
           <div>
             <h2>{pj.nome}</h2>
             <p class="memorial__epitafio">{pj.raca} · {pj.classe} · nível {pj.nivel}</p>

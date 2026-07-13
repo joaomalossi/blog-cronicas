@@ -16,7 +16,7 @@ import Layout from '../layouts/Layout.astro';
     <h2>O pipeline</h2>
 
     <figure class="pagina__figura">
-      <a href="#pipeline-ampliado" class="pagina__imagem-zoom" aria-label="Ampliar diagrama do pipeline">
+      <a href="#pipeline-ampliado" class="imagem-zoom" aria-label="Ampliar diagrama do pipeline">
         <img
           src={`${import.meta.env.BASE_URL}img/sobre/pipeline.webp`}
           alt="Diagrama 'Every Roll Tells a Story' mostrando o pipeline completo: jogar, registrar, gerar conto, gerar artes, exportar dados spoiler-safe e atualizar o site — do Claude Code como Mestre até a publicação automática."
@@ -76,10 +76,6 @@ import Layout from '../layouts/Layout.astro';
   .pagina__figura {
     margin: 2.2rem 0.6rem 2.5rem;
   }
-  .pagina__imagem-zoom {
-    display: block;
-    cursor: zoom-in;
-  }
   .pagina__imagem {
     display: block;
     width: 100%;
@@ -91,27 +87,5 @@ import Layout from '../layouts/Layout.astro';
     color: var(--cor-texto-suave);
     font-size: 0.8rem;
     font-style: italic;
-  }
-
-  .lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 1.5rem;
-    background: rgba(10, 8, 6, 0.92);
-    cursor: zoom-out;
-  }
-  .lightbox:target {
-    display: flex;
-  }
-  .lightbox img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: 0.3rem;
-    box-shadow: 0 0 3rem rgba(0, 0, 0, 0.6);
   }
 </style>
