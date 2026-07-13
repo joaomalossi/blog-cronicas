@@ -55,15 +55,10 @@ import Layout from '../layouts/Layout.astro';
 
     <h2>O autor</h2>
     <p>
-      Este projeto é do <strong>João Malossi</strong>, fundador da <strong>Malossi Studio</strong>
-      <!-- TODO: linkar o site oficial da Malossi Studio aqui -->.
+      Este projeto é do <strong>João Malossi</strong>, fundador da <a href="https://www.malossistudio.com" target="_blank" rel="noopener noreferrer"><strong>Malossi Studio</strong></a>.
       Crônicas de Maresia nasceu como mesa de RPG pessoal e virou peça de portfólio pelo caminho —
       um exemplo de pipeline criativo ponta a ponta orquestrado com IA: jogo, escrita, arte e
       publicação, sem intervenção manual entre uma etapa e outra além da revisão final.
-    </p>
-
-    <p class="pagina__aviso">
-      Página de rascunho — texto sujeito a revisão antes da aprovação final.
     </p>
   </article>
 </Layout>
@@ -78,15 +73,6 @@ import Layout from '../layouts/Layout.astro';
   .pagina--texto h2 {
     margin-top: 2.5rem;
   }
-  .pagina__aviso {
-    margin-top: 3rem;
-    padding-top: 1rem;
-    border-top: 1px dashed var(--cor-borda);
-    color: var(--cor-texto-suave);
-    font-size: 0.8rem;
-    font-style: italic;
-  }
-
   .pagina__figura {
     margin: 1.5rem 0 2rem;
   }
