@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import { caminhoImagem } from '../utils/imagens';
 
 const posts = await getCollection('posts');
 const ordenados = posts.sort((a, b) => b.data.data.valueOf() - a.data.data.valueOf());
@@ -14,7 +15,7 @@ const formatarData = (data: Date) =>
   {maisRecente && (
     <section class="hero">
       <a href={`${import.meta.env.BASE_URL}capitulos/${maisRecente.slug}`} class="hero__link">
-        <img class="hero__capa" src={maisRecente.data.imagem_capa} alt="" />
+        <img class="hero__capa" src={caminhoImagem(maisRecente.data.imagem_capa)} alt="" />
         <div class="hero__texto">
           <p class="hero__etiqueta">Capítulo mais recente</p>
           <h1 class="hero__titulo">{maisRecente.data.titulo}</h1>
@@ -32,7 +33,7 @@ const formatarData = (data: Date) =>
       {ordenados.map((post) => (
         <li class="indice__item">
           <a href={`${import.meta.env.BASE_URL}capitulos/${post.slug}`}>
-            <img class="indice__capa" src={post.data.imagem_capa} alt="" loading="lazy" />
+            <img class="indice__capa" src={caminhoImagem(post.data.imagem_capa)} alt="" loading="lazy" />
             <div>
               <h3>{post.data.titulo}</h3>
               <p class="indice__resumo">{post.data.resumo}</p>

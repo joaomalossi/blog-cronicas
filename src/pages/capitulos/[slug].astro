@@ -1,6 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { caminhoImagem } from '../../utils/imagens';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -32,7 +33,7 @@ const formatarData = (data: Date) =>
 <Layout title={post.data.titulo} description={post.data.resumo}>
   <article class="capitulo">
     <div class="capitulo__capa-wrapper">
-      <img class="capitulo__capa" src={post.data.imagem_capa} alt="" />
+      <img class="capitulo__capa" src={caminhoImagem(post.data.imagem_capa)} alt="" />
       <div class="capitulo__capa-sombra"></div>
       <div class="capitulo__cabecalho">
         <h1>{post.data.titulo}</h1>
