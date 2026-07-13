@@ -216,6 +216,11 @@ const { title, description = 'Crônicas de Maresia — capítulos ilustrados de 
       .imagem-zoom {
         display: block;
         cursor: zoom-in;
+        /* dentro de um flex sem align-items explícito (ex: cartão de NPC com
+           texto longo), o item esticaria em altura e o max-width:100% da
+           imagem colapsaria a largura pra quase zero — flex-shrink:0 evita */
+        flex-shrink: 0;
+        align-self: flex-start;
       }
       .lightbox {
         display: none;
